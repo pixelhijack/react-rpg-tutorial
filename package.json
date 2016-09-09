@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --progress --colors --watch -d",
     "server": "node node_modules/http-server/bin/http-server -a localhost"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "http-server": "^0.9.0"
+    "http-server": "^0.9.0",
+    "webpack": "^1.13.2"
   }
 }
