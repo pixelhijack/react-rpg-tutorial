@@ -1,7 +1,7 @@
 import React from 'react';
 
 var Inputfield = React.createClass({
-	handleKeyPress: function(e){
+	handleKeyUp: function(e){
 		console.log('Inputfield value', e.target.value);
 	},
 	render: function(){
@@ -9,7 +9,8 @@ var Inputfield = React.createClass({
 			<input 
 				className='inputfield'
                 type='text'
-                onKeyPress={this.handleKeyPress} 
+                placeholder='What do you want to do?'
+                onKeyUp={this.props.onKeyUp || this.handleKeyUp} 
                 value={this.props.text}/>
 		);
 	}

@@ -21976,12 +21976,21 @@
 	var App = _react2.default.createClass({
 		displayName: 'App',
 	
+		getInitialState: function getInitialState() {
+			return {
+				userTyped: 'Hello I am a dummy textbox.'
+			};
+		},
+		onAppKeyUp: function onAppKeyUp(e) {
+			this.setState({ userTyped: e.target.value });
+		},
 		render: function render() {
+			console.log('State changed, rerendering! State: ', this.state);
 			return _react2.default.createElement(
 				'div',
 				null,
-				_react2.default.createElement(_Textbox2.default, { text: 'Hello I am a dummy textbox.' }),
-				_react2.default.createElement(_Inputfield2.default, null)
+				_react2.default.createElement(_Textbox2.default, { text: this.state.userTyped }),
+				_react2.default.createElement(_Inputfield2.default, { onKeyUp: this.onAppKeyUp })
 			);
 		}
 	});
@@ -22006,14 +22015,15 @@
 	var Inputfield = _react2.default.createClass({
 		displayName: 'Inputfield',
 	
-		handleKeyPress: function handleKeyPress(e) {
+		handleKeyUp: function handleKeyUp(e) {
 			console.log('Inputfield value', e.target.value);
 		},
 		render: function render() {
 			return _react2.default.createElement('input', {
 				className: 'inputfield',
 				type: 'text',
-				onKeyPress: this.handleKeyPress,
+				placeholder: 'What do you want to do?',
+				onKeyUp: this.props.onKeyUp || this.handleKeyUp,
 				value: this.props.text });
 		}
 	});

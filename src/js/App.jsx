@@ -3,11 +3,20 @@ import Inputfield from './components/Inputfield.jsx';
 import Textbox from './components/Textbox.jsx';
 
 var App = React.createClass({
+	getInitialState: function(){
+		return {
+			userTyped: 'Hello I am a dummy textbox.'
+		};
+	},
+	onAppKeyUp: function(e){
+		this.setState({ userTyped: e.target.value });
+	},
 	render: function(){
+		console.log('State changed, rerendering! State: ', this.state);
 		return(
 			<div>
-				<Textbox text='Hello I am a dummy textbox.'></Textbox>
-				<Inputfield />
+				<Textbox text={this.state.userTyped}></Textbox>
+				<Inputfield onKeyUp={this.onAppKeyUp}/>
 			</div>
 		);
 	}
