@@ -57,22 +57,14 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	var _App = __webpack_require__(/*! ./App.jsx */ 172);
+	
+	var _App2 = _interopRequireDefault(_App);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var App = _react2.default.createClass({
-	  displayName: 'App',
-	
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      'Hello world from a real React app!'
-	    );
-	  }
-	});
-	
 	var mountNode = document.querySelector('#app');
-	_reactDom2.default.render(_react2.default.createElement(App, null), mountNode);
+	_reactDom2.default.render(_react2.default.createElement(_App2.default, null), mountNode);
 
 /***/ },
 /* 1 */
@@ -21957,6 +21949,105 @@
 	
 	module.exports = ReactDOMNullInputValuePropHook;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! (webpack)/~/node-libs-browser/~/process/browser.js */ 3)))
+
+/***/ },
+/* 172 */
+/*!************************!*\
+  !*** ./src/js/App.jsx ***!
+  \************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Inputfield = __webpack_require__(/*! ./components/Inputfield.jsx */ 173);
+	
+	var _Inputfield2 = _interopRequireDefault(_Inputfield);
+	
+	var _Textbox = __webpack_require__(/*! ./components/Textbox.jsx */ 174);
+	
+	var _Textbox2 = _interopRequireDefault(_Textbox);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var App = _react2.default.createClass({
+		displayName: 'App',
+	
+		render: function render() {
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(_Textbox2.default, { text: 'Hello I am a dummy textbox.' }),
+				_react2.default.createElement(_Inputfield2.default, null)
+			);
+		}
+	});
+	
+	module.exports = App;
+
+/***/ },
+/* 173 */
+/*!******************************************!*\
+  !*** ./src/js/components/Inputfield.jsx ***!
+  \******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Inputfield = _react2.default.createClass({
+		displayName: 'Inputfield',
+	
+		handleKeyPress: function handleKeyPress(e) {
+			console.log('Inputfield value', e.target.value);
+		},
+		render: function render() {
+			return _react2.default.createElement('input', {
+				className: 'inputfield',
+				type: 'text',
+				onKeyPress: this.handleKeyPress,
+				value: this.props.text });
+		}
+	});
+	
+	module.exports = Inputfield;
+
+/***/ },
+/* 174 */
+/*!***************************************!*\
+  !*** ./src/js/components/Textbox.jsx ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Textbox = _react2.default.createClass({
+	    displayName: 'Textbox',
+	
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'textbox' },
+	            this.props.text
+	        );
+	    }
+	});
+	
+	module.exports = Textbox;
 
 /***/ }
 /******/ ]);
