@@ -21985,7 +21985,12 @@
 				rooms: [{
 					id: 'inTheHallOfFame',
 					name: 'In the Hall of Fame',
-					question: '\nYou\'ve just entered to the hall of fame where you see many heros and their weapons.\n A door opens immediately in front of you and after a while the walls starts to move.\n Do you try to get a weapon (sword) before running through the door?\n',
+					questions: [{
+						condition: {},
+						question: {
+							text: '\nYou\'ve just entered to the hall of fame where you see many heros and their weapons.\n A door opens immediately in front of you and after a while the walls starts to move.\n Do you try to get a weapon (sword) before running through the door?\n'
+						}
+					}],
 					outcomes: [{
 						condition: {
 							answer: true
@@ -22006,8 +22011,59 @@
 				}, {
 					id: 'inTheThroatOfTheGreatLion',
 					name: 'In the Throat of the Great Lion',
-					question: '\nYou\'ve just entered to the room of the Great Lion and it sees you. You have a weapon so starts to attack you to save its own life.\n Do you drop your weapon down immediately?\n',
-					next: 'inTheLandlordsSecretChamber'
+					questions: [{
+						condition: {
+							weapon: true
+						},
+						question: {
+							text: '\nYou\'ve just entered to the room of the Great Lion and it sees you. You have a weapon so starts to attack you to save its own life.\n Do you drop your weapon down immediately?\n'
+						}
+					}, {
+						condition: {
+							weapon: false
+						},
+						question: {
+							text: '\nYou\'ve just entered to the room of the Great Lion and it sees you. You don\'t have a weapon so it starts to approach you smoothly.\n Do you pet the Great Lion?\n'
+						}
+					}],
+					outcomes: [{
+						condition: {
+							weapon: true,
+							answer: true
+						},
+						result: {
+							text: 'The Great Lion let you take your weapon back and pass through.\n',
+							next: 'inTheLandlordsSecretChamber'
+						}
+					}, {
+						condition: {
+							weapon: false,
+							answer: true
+						},
+						result: {
+							weapon: true,
+							text: 'The Great Lion gave you a weapon for such kindness.\n',
+							next: 'inTheLandlordsSecretChamber'
+						}
+					}, {
+						condition: {
+							weapon: true,
+							answer: false
+						},
+						result: {
+							text: 'You poor... What did you think? You cannot defeat the Great Lion.\n',
+							next: 'inTheCemetery'
+						}
+					}, {
+						condition: {
+							weapon: false,
+							answer: false
+						},
+						result: {
+							text: 'The Great Lion is sad but let you to pass through.\n',
+							next: 'inTheLandlordsSecretChamber'
+						}
+					}]
 				}]
 			};
 		},
@@ -22021,6 +22077,13 @@
 			return this.props.rooms.find(function (room) {
 				return room.id === id;
 			});
+		},
+		getQuestion: function getQuestion(room) {
+			var the = room.questions.find(function (question) {
+				return _underscore2.default.isMatch(this.state, question.condition);
+			}.bind(this));
+	
+			return the.question.text;
 		},
 		translateAnswer: function translateAnswer(answer) {
 			if (answer === 'yes') {
@@ -22057,7 +22120,7 @@
 					null,
 					this.getRoom(this.state.room).name
 				),
-				_react2.default.createElement(_Textbox2.default, { text: this.getRoom(this.state.room).question }),
+				_react2.default.createElement(_Textbox2.default, { text: this.getQuestion(this.getRoom(this.state.room)) }),
 				_react2.default.createElement(_Inputfield2.default, { onKeyUp: this.onAppKeyUp })
 			);
 		}
